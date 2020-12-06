@@ -21,7 +21,13 @@ function runSearch() {
          type: "rawlist",
          message: "What do you like to do?",
          choices: [
-             
+             "Want to view all departments?",
+             "Want to view all roles?",
+             "Want to view all employees?",
+             "Want to add departments?",
+             "Want to add roles?",
+             "Want to add employees?",
+             "Want to update roles?",
          ]
      })
 }
