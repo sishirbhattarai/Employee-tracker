@@ -63,7 +63,12 @@ function runSearch() {
 
          case "Want to exit?":
              exit();
-             break;
+            break;
          }
      })
+
+     function exit() {
+        console.log("Closing program....")
+        process.exit(0); 
+     }
 }
