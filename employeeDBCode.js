@@ -28,6 +28,42 @@ function runSearch() {
              "Want to add roles?",
              "Want to add employees?",
              "Want to update roles?",
+             "Want to exit?"
          ]
+     })
+     .then(function(answer) {
+         switch (answer.action) {
+         case "Want to view all departments?":
+             viewDepartments();
+             break;
+
+         case "Want to view all roles?":
+             viewRoles();
+                break;
+
+         case "Want to view all employees?":
+             viewEmployees();
+             break;
+
+         case "Want to add departments?":
+             addDepartments();
+             break;
+
+         case "Want to add roles?":
+             addRoles();
+             break;
+
+         case "Want to add employees?":
+             addEmployees();
+             break;
+
+         case "Want to update roles?":
+             updateRoles();
+             break;
+
+         case "Want to exit?":
+             exit();
+             break;
+         }
      })
 }
