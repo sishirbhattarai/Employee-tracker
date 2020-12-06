@@ -14,7 +14,7 @@ CREATE TABLE departments (
 CREATE TABLE roles (
  id INT NOT NULL AUTO_INCREMENT,
  title VARCHAR(30) NOT NULL,
- salary DECIMAL,
+ salary DECIMAL(10,4),
  department_id INT NOT NULL,
  PRIMARY KEY (id)
 
@@ -27,3 +27,7 @@ CREATE TABLE employee (
  role_id INT NOT NULL,
  manager_id INT NOT NULL
 );
+
+SELECT * FROM departments;
+SELECT * FROM  roles;
+SELECT * FROM employee;
