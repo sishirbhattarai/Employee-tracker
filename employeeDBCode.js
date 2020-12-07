@@ -66,9 +66,22 @@ function runSearch() {
             break;
          }
      })
+function viewDepartments() {
+    var query = "SELECT * FROM employees_db.departments";
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+        console.log(res)
+    })
+    runSearch();
+    
+}
 
-     function exit() {
+
+
+function exit() {
         console.log("Closing program....")
         process.exit(0); 
      }
+     
+
 }

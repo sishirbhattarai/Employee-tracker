@@ -33,6 +33,27 @@ CREATE TABLE employee (
 
 );
 
+INSERT INTO departments (name) values ('HR');
+INSERT INTO departments (name) values ('Engineering');
+INSERT INTO departments (name) values ('Logistics');
+INSERT INTO departments (name) values ('Customer Support');
+INSERT INTO departments (name) values ('Project Management');
+
+INSERT INTO roles (title, salary, department_id) values ('Developers', '$105000', 2);
+INSERT INTO roles (title, salary, department_id) values ('Human Resource', '$101000', 1);
+INSERT INTO roles (title, salary, department_id) values ('Logistics Manager', '$65000', 3);
+INSERT INTO roles (title, salary, department_id) values ('Customer Care', '$75000', 4);
+INSERT INTO roles (title, salary, department_id) values ('Program Manager', '$125000', 5);
+
+INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Jane', 'Austen', '1', '131');
+INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Mark', 'Twain', '2', '231');
+INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Lewis', 'Carroll', '3', '331');
+INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Andre', 'Asselin', '4', '431');
+INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Brad', 'Twins', '5', '531');
+
+
+
+
 SELECT * FROM departments;
 SELECT * FROM  roles;
 SELECT * FROM employee;
