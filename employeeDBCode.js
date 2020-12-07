@@ -73,7 +73,24 @@ function viewDepartments() {
         console.log(res)
     })
     runSearch();
-    
+}
+
+function  viewRoles() {
+    var query = "SELECT * FROM employees_db.roles";
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+        console.log(res)
+    })
+    runSearch();
+}
+
+function viewEmployees() {
+    var query = "SELECT * FROM employees_db.employee";
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+        console.log(res)
+    })
+    runSearch();
 }
 
 
