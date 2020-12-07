@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+//var consoleTable = require("console.table");
 
 var connection = mysql.createConnection({
     port: 3306,
@@ -91,6 +92,10 @@ function viewEmployees() {
         console.log(res)
     })
     runSearch();
+}
+
+function addDepartments() {
+    var query = "SELECT * FROM employees_db.departments";
 }
 
 
