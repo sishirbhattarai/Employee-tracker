@@ -71,7 +71,7 @@ function viewDepartments() {
     var query = "SELECT * FROM employees_db.departments";
     connection.query(query, function(err, res) {
         if (err) throw err;
-        console.log(res)
+        console.table(res)
     })
     runSearch();
 }
@@ -80,7 +80,7 @@ function  viewRoles() {
     var query = "SELECT * FROM employees_db.roles";
     connection.query(query, function(err, res) {
         if (err) throw err;
-        console.log(res)
+        console.table(res)
     })
     runSearch();
 }
@@ -89,13 +89,29 @@ function viewEmployees() {
     var query = "SELECT * FROM employees_db.employee";
     connection.query(query, function(err, res) {
         if (err) throw err;
-        console.log(res)
+        
+        console.table(res)
     })
     runSearch();
 }
 
 function addDepartments() {
-    var query = "SELECT * FROM employees_db.departments";
+    inquirer
+      .prompt({
+          name: "departmts",
+          type: "input",
+          message: "What department you would like to add?"
+      })
+      .then(function(answer) {
+          console.log("Your entered " + answer.departmts);
+          var query = `SELECT * FROM employees_db.departments INSERT INTO departments (name) values ${answer.departmts}`;
+          connection.query(query, function(err, res) {
+            if (err) throw err;
+
+            console.table(res)
+        })
+        runSearch();
+    })
 }
 
 
