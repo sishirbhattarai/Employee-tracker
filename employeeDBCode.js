@@ -70,6 +70,8 @@ function viewDepartments() {
     var query = "SELECT * FROM employees_db.departments";
     connection.query(query, function(err, res) {
         if (err) throw err;
+
+        console.log("\n");
         console.table(res)
     })
     runSearch();
@@ -79,6 +81,8 @@ function  viewRoles() {
     var query = "SELECT * FROM employees_db.roles";
     connection.query(query, function(err, res) {
         if (err) throw err;
+
+        console.log("\n");
         console.table(res)
     })
     runSearch();
@@ -89,7 +93,8 @@ function viewEmployees() {
     connection.query(query, function(err, res) {
         if (err) throw err;
 
-      console.table(res)
+         console.log("\n");
+         console.table(res)
     })
     runSearch();
 }
@@ -107,7 +112,8 @@ function addDepartments() {
           connection.query(query, function(err, res) {
             if (err) throw err;
 
-            console.table(res)
+          console.log("\n");
+          console.table(res)
         })
         runSearch();
     })
@@ -141,6 +147,7 @@ function addRoles() {
           connection.query(query, function(err, res) {
             if (err) throw err;
 
+            console.log("\n");
             console.table(res)
         })
         runSearch();
@@ -175,12 +182,14 @@ function addEmployees() {
          },
     
     ])
-      .then(function(answer) {
+      .then (function(answer) {
           console.log("Your entered " + answer.firstname + "," + answer.lastname + "," + answer.roleid + "and" + answer.managerid);
           var query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('${answer.firstname}', '${answer.lastname}', '${answer.roleid}', '${answer.managerid}')`;
           connection.query(query, function(err, res) {
             if (err) throw err;
 
+
+            console.log("\n");
             console.table(res)
         })
         runSearch();
@@ -190,31 +199,48 @@ function addEmployees() {
 }
 
 function updateEmployeeRoles() {
-    inquirer
-      .prompt([
-          {
-          name: "first",
-          type: "input",
-          message: "Please provide first name of the employee you want to update the role of"
-         },
 
-         {
-          name: "last",
-          type: "input",
-          message: "Please provide first name of the employee you want to update the role of"
+    const empChoices = employee.map(({ first_name, last_name }) => ({
+        name: `${first_name} ${last_name}`,
+        value: id
+      }));
+    
+      inquirer
+       .prompt([
+        {
+          type: "list",
+          name: "employeeId",
+          message: "Which employee's role do you want to update?",
+          choices: empChoices
+        }
+      ]);
 
-         },
-         {
-          name: "roletitle",
-          type: "input",
-          message: "What role title you want to change it to?"
-         },
+
+    // inquirer
+    //   .prompt([
+    //       {
+    //       name: "first",
+    //       type: "input",
+    //       message: "Please provide first name of the employee you want to update the role of"
+    //      },
+
+    //      {
+    //       name: "last",
+    //       type: "input",
+    //       message: "Please provide last name of the employee you want to update the role of"
+
+    //      },
+    //      {
+    //       name: "roletitle",
+    //       type: "input",
+    //       message: "What role title you want to change it to?"
+    //      },
              
-    ])
-      .then(function(answer) {
+    // ])
+    //   .then(function(answer) {
+       
 
-
-    })
+    // })
 
 }
 
