@@ -132,7 +132,7 @@ function addRoles() {
          {
           name: "dptid",
           type: "input",
-          message: "What is the department if for this role?"
+          message: "What is the department id if for this role?"
          },
     
     ])
@@ -150,6 +150,43 @@ function addRoles() {
 }
 
 function addEmployees() {
+    inquirer
+      .prompt([
+          {
+          name: "firstname",
+          type: "input",
+          message: "What is the first name of the employee?"
+         },
+
+         {
+          name: "lastname",
+          type: "input",
+          message: "What is the lastname name of the employee"
+
+         },
+         {
+          name: "roleid",
+          type: "input",
+          message: "What is the role id for this employee's role?"
+         },
+         {
+          name: "managerid",
+          type: "input",
+          message: "What is the manager id of this employee?"
+         },
+    
+    ])
+      .then(function(answer) {
+          console.log("Your entered " + answer.firstname + "," + answer.lastname + "," + answer.roleid + "and" + answer.managerid);
+          var query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('${answer.firstname}', '${answer.lastname}', '${answer.roleid}', '${answer.managerid}')`;
+          connection.query(query, function(err, res) {
+            if (err) throw err;
+
+            console.table(res)
+        })
+        runSearch();
+    })
+    
 
 }
 
