@@ -89,7 +89,7 @@ function viewEmployees() {
     var query = "SELECT * FROM employees_db.employee";
     connection.query(query, function(err, res) {
         if (err) throw err;
-        
+
         console.table(res)
     })
     runSearch();
@@ -104,7 +104,7 @@ function addDepartments() {
       })
       .then(function(answer) {
           console.log("Your entered " + answer.departmts);
-          var query = `SELECT * FROM employees_db.departments INSERT INTO departments (name) values ${answer.departmts}`;
+          var query = `INSERT INTO departments (name) values ('${answer.departmts}')`;
           connection.query(query, function(err, res) {
             if (err) throw err;
 

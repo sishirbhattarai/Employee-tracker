@@ -27,12 +27,12 @@ USE employees_db;
 INSERT INTO employee (first_name, last_name, role_id, manager_id) 
 values ('Jane', 'Austen', 1, NULL),
  ('Mark', 'Twain', 2, 1),
- ('Lewis', 'Carroll', 3, 4),
+ ('Lewis', 'Carroll', 3, 1),
  ('Andre', 'Asselin', 4, 3),
- ("Duke", "Johnson", 4, NULL),
- ("Josh", "Johnson", 5, 3),
- ("Leslie", "Knope", 6, 5),
- ("Theresa", "Louise", 2, 1),
+ ('Duke', 'Johnson', 4, NULL),
+ ('Josh', 'Johnson', 5, 3),
+ ('Leslie', 'Knope', 6, 5),
+ ('Theresa', 'Louise', 2, 1),
  ('Brad', 'Twins', 5, 5);
 
 
