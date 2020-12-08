@@ -1,6 +1,5 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-//var consoleTable = require("console.table");
 
 var connection = mysql.createConnection({
     port: 3306,
@@ -58,8 +57,8 @@ function runSearch() {
              addEmployees();
              break;
 
-         case "Want to update roles?":
-             updateRoles();
+         case "Want to update employee roles?":
+             updateEmployeeRoles();
              break;
 
          case "Want to exit?":
@@ -190,7 +189,32 @@ function addEmployees() {
 
 }
 
-function updateRoles() {
+function updateEmployeeRoles() {
+    inquirer
+      .prompt([
+          {
+          name: "first",
+          type: "input",
+          message: "Please provide first name of the employee you want to update the role of"
+         },
+
+         {
+          name: "last",
+          type: "input",
+          message: "Please provide first name of the employee you want to update the role of"
+
+         },
+         {
+          name: "roletitle",
+          type: "input",
+          message: "What role title you want to change it to?"
+         },
+             
+    ])
+      .then(function(answer) {
+
+
+    })
 
 }
 
