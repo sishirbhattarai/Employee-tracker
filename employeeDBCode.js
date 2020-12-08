@@ -90,7 +90,7 @@ function viewEmployees() {
     connection.query(query, function(err, res) {
         if (err) throw err;
 
-        console.table(res)
+      console.table(res)
     })
     runSearch();
 }
@@ -114,7 +114,48 @@ function addDepartments() {
     })
 }
 
+function addRoles() {
+    inquirer
+      .prompt([
+          {
+          name: "title",
+          type: "input",
+          message: "What role you would like to add?"
+         },
 
+         {
+          name: "salary",
+          type: "input",
+          message: "What salary you would like to enter for this role?"
+
+         },
+         {
+          name: "dptid",
+          type: "input",
+          message: "What is the department if for this role?"
+         },
+    
+    ])
+      .then(function(answer) {
+          console.log("Your entered " + answer.title + "," + answer.salary + "and" + answer.dptid);
+          var query = `INSERT INTO roles (title, salary, department_id) values ('${answer.title}', '${answer.salary}', '${answer.dptid}')`;
+          connection.query(query, function(err, res) {
+            if (err) throw err;
+
+            console.table(res)
+        })
+        runSearch();
+    })
+    
+}
+
+function addEmployees() {
+
+}
+
+function updateRoles() {
+
+}
 
 function exit() {
         console.log("Closing program....")
