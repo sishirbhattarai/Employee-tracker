@@ -164,22 +164,29 @@ function addEmployees() {
     inquirer
       .prompt([
        {
-        name: "first",
+        name: "firstname",
         type: "input",
-        message: "Please provide first name of the employee you want to update the role of"
+        message: "What is the firstname of the employee you want to add?"
        },
 
        {
-        name: "last",
+        name: "lastname",
         type: "input",
-        message: "Please provide last name of the employee you want to update the role of"
+        message: "What is the firstname of the employee you want to add?"
 
        },
        {
-        name: "roletitle",
+        name: "roleid",
         type: "input",
-        message: "What role title you want to change it to?"
+        message: "What role id of the employee?"
        },
+
+       {
+        name: "managerid",
+        type: "input",
+        message: "What manager id for the employee?"
+
+       }
            
   ])
     .then(function(answer) {
