@@ -27,7 +27,7 @@ function runSearch() {
              "Want to add departments?",
              "Want to add roles?",
              "Want to add employees?",
-             "Want to update roles?",
+             "Want to update employee roles?",
              "Want to exit?"
          ]
      })
@@ -63,9 +63,10 @@ function runSearch() {
 
          case "Want to exit?":
              exit();
-            break;
+             break;
          }
      })
+}
 function viewDepartments() {
     var query = "SELECT * FROM employees_db.departments";
     connection.query(query, function(err, res) {
@@ -89,7 +90,11 @@ function  viewRoles() {
 }
 
 function viewEmployees() {
-    var query = "SELECT * FROM employees_db.employee";
+    var query = `SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, departments.name
+    FROM employee
+    INNER JOIN roles on roles.id = employee.role_id
+    INNER JOIN departments on departments.id = roles.department_id;`
+
     connection.query(query, function(err, res) {
         if (err) throw err;
 
@@ -158,89 +163,53 @@ function addRoles() {
 function addEmployees() {
     inquirer
       .prompt([
-          {
-          name: "firstname",
-          type: "input",
-          message: "What is the first name of the employee?"
-         },
+       {
+        name: "first",
+        type: "input",
+        message: "Please provide first name of the employee you want to update the role of"
+       },
 
-         {
-          name: "lastname",
-          type: "input",
-          message: "What is the lastname name of the employee"
+       {
+        name: "last",
+        type: "input",
+        message: "Please provide last name of the employee you want to update the role of"
 
-         },
-         {
-          name: "roleid",
-          type: "input",
-          message: "What is the role id for this employee's role?"
-         },
-         {
-          name: "managerid",
-          type: "input",
-          message: "What is the manager id of this employee?"
-         },
-    
-    ])
-      .then (function(answer) {
-          console.log("Your entered " + answer.firstname + "," + answer.lastname + "," + answer.roleid + "and" + answer.managerid);
-          var query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('${answer.firstname}', '${answer.lastname}', '${answer.roleid}', '${answer.managerid}')`;
-          connection.query(query, function(err, res) {
-            if (err) throw err;
+       },
+       {
+        name: "roletitle",
+        type: "input",
+        message: "What role title you want to change it to?"
+       },
+           
+  ])
+    .then(function(answer) {
+      var query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('${answer.firstname}', '${answer.lastname}', '${answer.roleid}', '${answer.managerid}')`;
+      connection.query(query, function(err, res) {
+        if (err) throw err;
 
 
-            console.log("\n");
-            console.table(res)
-        })
-        runSearch();
+        console.log("\n");
+        console.table(res)
     })
-    
+    runSearch();
+})
 
 }
 
 function updateEmployeeRoles() {
-
-    const empChoices = employee.map(({ first_name, last_name }) => ({
-        name: `${first_name} ${last_name}`,
-        value: id
-      }));
-    
-      inquirer
-       .prompt([
+   inquirer
+      .prompt([
         {
           type: "list",
-          name: "employeeId",
+          name: "employee",
           message: "Which employee's role do you want to update?",
-          choices: empChoices
+          choices: employee.map(({ first_name, last_name }) => ({
+            name: `${first_name} ${last_name}`,
+            value: id
+          }))
         }
       ]);
-
-
-    // inquirer
-    //   .prompt([
-    //       {
-    //       name: "first",
-    //       type: "input",
-    //       message: "Please provide first name of the employee you want to update the role of"
-    //      },
-
-    //      {
-    //       name: "last",
-    //       type: "input",
-    //       message: "Please provide last name of the employee you want to update the role of"
-
-    //      },
-    //      {
-    //       name: "roletitle",
-    //       type: "input",
-    //       message: "What role title you want to change it to?"
-    //      },
-             
-    // ])
-    //   .then(function(answer) {
-       
-
-    // })
+    
 
 }
 
@@ -250,4 +219,3 @@ function exit() {
      }
      
 
-}
