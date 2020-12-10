@@ -68,7 +68,8 @@ function runSearch() {
      })
 }
 function viewDepartments() {
-    var query = "SELECT * FROM employees_db.departments";
+    var query = `SELECT departments.id AS "department id", departments.name AS "department name"
+                 FROM departments`
     connection.query(query, function(err, res) {
         if (err) throw err;
 
@@ -79,7 +80,8 @@ function viewDepartments() {
 }
 
 function  viewRoles() {
-    var query = "SELECT * FROM employees_db.roles";
+    var query = `SELECT roles.id AS "role ID", roles.title AS "Role Title", roles.salary AS "Salary", roles.department_id AS "department id"
+                  FROM roles;`
     connection.query(query, function(err, res) {
         if (err) throw err;
 
@@ -90,7 +92,7 @@ function  viewRoles() {
 }
 
 function viewEmployees() {
-    var query = `SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, departments.name
+    var query = `SELECT employee.id, CONCAT (employee.first_name, "   ", employee.last_name) AS "Full Employee Name", roles.title, roles.salary, employee.role_id, departments.name AS "department name"
                  FROM employee
                  INNER JOIN roles on roles.id = employee.role_id
                  INNER JOIN departments on departments.id = roles.department_id;`
@@ -118,7 +120,7 @@ function addDepartments() {
             if (err) throw err;
 
           console.log("\n");
-          console.table(res)
+          
         })
         runSearch();
     })
@@ -142,7 +144,7 @@ function addRoles() {
          {
           name: "dptid",
           type: "input",
-          message: "What is the department id if for this role?"
+          message: "What is the department id  for this role?"
          },
     
     ])
@@ -153,7 +155,6 @@ function addRoles() {
             if (err) throw err;
 
             console.log("\n");
-            console.table(res)
         })
         runSearch();
     })
@@ -196,33 +197,95 @@ function addEmployees() {
 
 
         console.log("\n");
-        console.table(res)
+        
     })
     runSearch();
 })
 
 }
 
-function updateEmployeeRoles() {
-   inquirer
-      .prompt([
-        {
-          type: "list",
-          name: "employee",
-          message: "Which employee's role do you want to update?",
-          choices: employee.map(({ first_name, last_name }) => ({
-            name: `${first_name} ${last_name}`,
-            value: id
-          }))
-        }
-      ]);
-    
+function exit() {
+    console.log("Closing program....")
+    process.exit(0); 
+ }
 
+
+function updateEmployeeRoles() {
+    var query = `SELECT employee.id, CONCAT (employee.first_name, "   ", employee.last_name) AS "Full Employee Name", roles.title, roles.salary, employee.role_id, departments.name AS "department name"
+                 FROM employee
+                 INNER JOIN roles on roles.id = employee.role_id
+                 INNER JOIN departments on departments.id = roles.department_id;`
+
+//Used this table to show full employee tablle for use to change the roles of an employee
+
+    connection.query(query, function (err, res) {
+        console.table(res);
+
+    inquirer
+    .prompt([
+     {
+      name: "employeeId",
+      type: "input",
+      message: "What is the employeeId that you want to change the role of?"
+     },
+
+     {
+      name: "newRoleId",
+      type: "input",
+      message: "What is the new role Id for this employee?"
+     }   
+])
+  .then(function(answer) {
+    var query = `UPDATE employee SET role_id =${answer.newRoleId} WHERE id = ${answer.employeeId};`
+
+    console.log("You can sucessfully changed the role")
+
+    var addedQuery = `SELECT employee.id, CONCAT (employee.first_name, "   ", employee.last_name) AS "Full Employee Name", roles.title, roles.salary, employee.role_id, departments.name AS "department name"
+                 FROM employee
+                 INNER JOIN roles on roles.id = employee.role_id
+                 INNER JOIN departments on departments.id = roles.department_id;`
+
+        var query = connection.query(query, function (err, res) {
+          if (err) {
+            console.log(err);
+          }
+          
+        connection.query(addedQuery, function (err, res) {
+        
+                    runSearch();
+          });
+          // console.log(query.sql);
+        });
+      });
+  });
 }
 
-function exit() {
-        console.log("Closing program....")
-        process.exit(0); 
-     }
+
+// function updateEmployeeRoles() {
+
+// const query = `SELECT employee.id, employee.first_name, employee.last_name
+//                 FROM employee`
+// connection.query(query, function(err, res) {
+
+
+// var employeeArray = [res.first_name, res.last_name]
+
+// console.log(array);
+
+//    inquirer
+//       .prompt([
+//         {
+//           type: "list",
+//           name: "employee",
+//           message: "Which employee's role do you want to update?",
+//           choices: employeeArray
+//         }
+//       ]);
+//   console.log(employee)  ;
+// })
+
+// }
+
+
      
 
