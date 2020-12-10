@@ -7,10 +7,10 @@ Developers are often tasked with creating interfaces that make it easy for non-d
 ## Table of Contents:
 
  * [Installation](#Installation)
- * [Guithub](#Github link)
+ * [Guithub](#Github)
  * [Usage](#Usage)
  * [Contributors](#Contributors)
- * [Video](#Link to the Video
+ * [Video](#Video)
  
  ## Installation:
  inquirer is required to prompt user inputs from command line
